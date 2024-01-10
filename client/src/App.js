@@ -18,6 +18,13 @@ function App() {
     }
   };
 
+  const joinTo = (theRoom) => {
+    if (theRoom !== "") {
+      setRoom(theRoom);
+      socket.emit("join_room", theRoom);
+    }
+  };
+
   const sendMessage = () => {
     socket.emit("send_message", { message, room });
   };
@@ -28,7 +35,7 @@ function App() {
     });
   }, [socket]);
   return (
-    <div className="App">
+    <div className="App" onClick={() => {}}>
       <input
         placeholder="Room Number..."
         onChange={(event) => {
@@ -43,6 +50,32 @@ function App() {
         }}
       />
       <button onClick={sendMessage}> Send Message</button>
+      <div>
+        <button
+          onClick={() => {
+            joinTo("node");
+          }}
+        >
+          {" "}
+          node{" "}
+        </button>{" "}
+        <button
+          onClick={() => {
+            joinTo("react");
+          }}
+        >
+          {" "}
+          react{" "}
+        </button>{" "}
+        <button
+          onClick={() => {
+            joinTo("django");
+          }}
+        >
+          {" "}
+          django{" "}
+        </button>
+      </div>
       <h1> Message:</h1>
       {messageReceived}
     </div>
